@@ -1,0 +1,71 @@
+image=rgb2gray(imread('test.jpg'));
+image=imresize(image, [256 256]);
+s=size(image);
+for i=1:s(1)
+    for j=1:s(2)
+        if((i==1)&&(j==1))
+            a1=0;a2=0;a3=0;a4=0;a7=0;
+            a6=image(i,j+1);
+            a8=image(i+1,j);
+            a9=image(i+1,j+1);
+        elseif((i==1)&&((j>1)&&(j~=s(2))))
+            a1=0;a2=0;a3=0;
+            a4=image(i,j-1);
+            a6=image(i,j+1);
+            a7=image(i+1,j-1);
+            a8=image(i+1,j);
+            a9=image(i+1,j+1);
+        elseif((i==1)&&(j==s(2)))
+            a1=0;a2=0;a3=0;a6=0;a9=0;
+            a4=image(i,j-1);
+            a7=image(i+1,j-1);
+            a8=image(i+1,j);
+        elseif((i==s(1))&&(j==1))
+            a2=image(i-1,j);
+            a3=image(i-1,j+1);
+            a6=image(i,j+1);
+            a1=0;a4=0;a7=0;a8=0;a9=0;
+        elseif(((i>1)&&(i~=s(1)))&&(j==1))
+            a1=0;a4=0;a7=0;
+            a2=image(i-1,j);
+            a3=image(i-1,j+1);
+            a6=image(i,j+1);
+            a8=image(i+1,j);
+            a9=image(i+1,j+1);
+        elseif((i==s(1))&&(j==s(2)))
+            a1=image(i-1,j-1);
+            a2=image(i-1,j);
+            a4=image(i,j-1);
+            a3=0;a6=0;a7=0;a8=0;a9=0;
+        elseif((i==s(1))&&(j<s(2)))
+            a1=image(i-1,j-1);
+            a2=image(i-1,j);
+            a3=image(i-1,j+1);
+            a4=image(i,j-1);
+            a6=image(i,j+1);
+            a7=0;a8=0;a9=0;
+        elseif((i>1)&&(j==s(2)))
+            a1=image(i-1,j-1);
+            a2=image(i-1,j);
+            a4=image(i,j-1);
+            a7=image(i+1,j-1);
+            a8=image(i+1,j);
+            a3=0;a6=0;a9=0;
+            
+        else
+            a1=image(i-1,j-1);
+            a2=image(i-1,j);
+            a3=image(i-1,j+1);
+            a4=image(i,j-1);
+            a6=image(i,j+1);
+            a7=image(i+1,j-1);
+            a8=image(i+1,j);
+            a9=image(i+1,j+1);
+        end
+            a5=image(i,j);
+            lbp_new_image(i,j)=lbp(a1,a2,a3,a4,a5,a6,a7,a8,a9);
+        end
+end
+imshow(uint8(lbp_new_image));
+
+
